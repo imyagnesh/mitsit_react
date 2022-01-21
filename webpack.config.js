@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, "bundle"),
     filename: "mitsit.min.js",
   },
-  mode: "production",
+  mode: "development",
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
@@ -17,6 +17,11 @@ module.exports = {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: "babel-loader",
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        exclude: /node_modules/,
+        use: ["style-loader","css-loader", "sass-loader"],
       },
     ],
   },
