@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import Child1 from "./child1";
+import Child2 from "./child2";
+import Header from "./header";
 import "./root.scss";
 
 const wait = (time: number) =>
@@ -73,15 +76,14 @@ class App extends Component<AppProp, State> {
     const { a, b } = this.state;
 
     return (
-      <div>
-        <h1>{title}</h1>
-        <h2>{caption}</h2>
-        <h3>{a}</h3>
-        <h3>{b}</h3>
-        <button type="button" onClick={this.changeA}>
-          Change Value of A
-        </button>
-      </div>
+      <>
+        <Header paths={["Home", "About", "Contact"]} />
+        <Header paths={["Home", "Projects", "Blog", "Contact"]} />
+        <main>
+          <section id="banner"></section>
+        </main>
+        <footer></footer>
+      </>
     );
   }
 }
