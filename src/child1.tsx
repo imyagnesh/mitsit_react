@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 type Props = {};
 
@@ -8,4 +8,6 @@ const Child1 = (props: Props) => {
   return <div>hello from child 1</div>;
 };
 
-export default Child1;
+export default memo(Child1, (prevProps, nextprop) => {
+  return false;
+});
