@@ -1,19 +1,24 @@
-import React, { Component } from "react";
+import React, { ErrorInfo, PureComponent } from "react";
 
 type Props = {};
 
-type State = {};
+type State = {
+  hasError: string;
+};
 
-export default class ErrorBoundary extends Component<Props, State> {
-  state = {};
+export default class ErrorBoundary extends PureComponent<Props, State> {
+  state = {
+    hasError: "",
+  };
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error) {
     return {
       hasError: error.message,
     };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.log(error);
     console.log(info.componentStack);
 
     // logging
