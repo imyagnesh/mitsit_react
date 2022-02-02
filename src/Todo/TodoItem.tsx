@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import cn from "classnames";
 import { TodoItemType } from ".";
 
 type Props = {
@@ -18,7 +19,11 @@ const TodoItem = ({ todoItem, completeTodo, deleteTodo }: Props) => {
         onChange={() => completeTodo(todoItem)}
         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
       />
-      <p className={`flex-1 px-4${todoItem.isDone ? " line-through" : ""}`}>
+      <p
+        className={cn("flex-1 px-4", {
+          "line-through": todoItem.isDone,
+        })}
+      >
         {todoItem.text}
       </p>
       <button className="btn" onClick={() => deleteTodo(todoItem.id)}>
