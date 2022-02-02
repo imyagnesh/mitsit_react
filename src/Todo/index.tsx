@@ -1,19 +1,32 @@
-import React, { ChangeEvent, Component, FormEvent, createRef } from "react";
+import React, { Component, FormEvent, createRef } from "react";
 import "./todo.scss";
+import TodoForm from "./todoForm";
+import TodoFilter from "./TodoFilter";
+import TodoList from "./TodoList";
 
-type TodoItem = {
+export type TodoItemType = {
+  id: number;
   text: string;
+  isDone: boolean;
 };
 
 type Props = {};
 
+export enum FilterType {
+  all = "all",
+  pending = "pending",
+  completed = "completed",
+}
+
 type State = {
-  todoList: TodoItem[];
+  todoList: TodoItemType[];
+  filterType: FilterType;
 };
 
 export default class index extends Component<Props, State> {
   state = {
     todoList: [],
+    filterType: FilterType.all,
   };
 
   inputRef = createRef<HTMLInputElement>();
@@ -26,7 +39,11 @@ export default class index extends Component<Props, State> {
           return {
             todoList: [
               ...todoList,
-              { text: this.inputRef.current?.value || "" },
+              {
+                id: new Date().valueOf(),
+                text: this.inputRef.current?.value || "",
+                isDone: false,
+              },
             ],
           };
         },
@@ -39,37 +56,43 @@ export default class index extends Component<Props, State> {
     }
   };
 
+  completeTodo = (todoItem: TodoItemType) => {
+    this.setState(({ todoList }) => {
+      return {
+        todoList: todoList.map((x) =>
+          x.id === todoItem.id ? { ...x, isDone: !x.isDone } : x
+        ),
+      };
+    });
+  };
+
+  deleteTodo = (id: number) => {
+    this.setState(({ todoList }) => {
+      return {
+        todoList: todoList.filter((x) => x.id !== id),
+      };
+    });
+  };
+
+  filterTodo = (filterType: FilterType) => {
+    this.setState({ filterType });
+  };
+
   render() {
     console.log("render");
-    const { todoList } = this.state;
+    const { todoList, filterType } = this.state;
 
     return (
       <div className="container">
         <h1>Todo App</h1>
-        <form className="flex justify-center" onSubmit={this.onSubmit}>
-          <div className="w-full sm:w-1/2 md:w-1/4">
-            <label htmlFor="todo-text" className="hidden">
-              First name
-            </label>
-            <input
-              ref={this.inputRef}
-              type="text"
-              name="todo-text"
-              id="todo-text"
-              className="text-input"
-            />
-          </div>
-          <button type="submit" className="btn">
-            Save
-          </button>
-        </form>
-        <div>
-          {todoList.map((todoItem: TodoItem) => (
-            <div>
-              <p>{todoItem.text}</p>
-            </div>
-          ))}
-        </div>
+        <TodoForm onSubmit={this.onSubmit} ref={this.inputRef} />
+        <TodoList
+          todoList={todoList}
+          filterType={filterType}
+          completeTodo={this.completeTodo}
+          deleteTodo={this.deleteTodo}
+        />
+        <TodoFilter filterTodo={this.filterTodo} />
       </div>
     );
   }

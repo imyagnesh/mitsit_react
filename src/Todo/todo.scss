@@ -1,5 +1,5 @@
 .container {
-  @apply h-screen bg-neutral-100;
+  @apply flex flex-col h-screen bg-neutral-100;
 
   h1 {
     @apply text-3xl font-semibold text-center py-8;
