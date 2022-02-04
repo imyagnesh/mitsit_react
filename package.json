@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "start:server": "json-server --watch db.json"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

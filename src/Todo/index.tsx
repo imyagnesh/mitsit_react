@@ -35,63 +35,101 @@ export default class index extends Component<Props, State> {
   };
 
   inputRef = createRef<HTMLInputElement>();
-  testRef: HTMLInputElement = {} as HTMLInputElement;
 
-  testRef2: HTMLInputElement = {} as HTMLInputElement;
+  async componentDidMount() {
+    this.loadData();
+  }
 
-  onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (this.inputRef.current?.value) {
-      this.setState(
-        ({ todoList }) => {
-          return {
-            todoList: [
-              ...todoList,
-              {
-                id: new Date().valueOf(),
-                text: this.inputRef.current?.value || "",
-                isDone: false,
-              },
-            ],
-          };
-        },
-        () => {
-          if (this.inputRef.current?.value) {
-            this.inputRef.current.value = "";
+  loadData = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/todoList");
+      const json = await res.json();
+      this.setState({
+        todoList: json,
+      });
+    } catch (error) {}
+  };
+
+  onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault();
+      if (this.inputRef.current?.value) {
+        const res = await fetch("http://localhost:3000/todoList", {
+          method: "POST",
+          body: JSON.stringify({
+            text: this.inputRef.current?.value || "",
+            isDone: false,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+
+        const json = await res.json();
+
+        // this.loadData();
+
+        this.setState(
+          ({ todoList }) => {
+            return {
+              todoList: [...todoList, json],
+            };
+          },
+          () => {
+            if (this.inputRef.current?.value) {
+              this.inputRef.current.value = "";
+            }
           }
-        }
-      );
-    }
+        );
+      }
+    } catch (error) {}
   };
 
-  completeTodo = (todoItem: TodoItemType) => {
-    this.setState(({ todoList }) => {
-      return {
-        todoList: todoList.map((x) =>
-          x.id === todoItem.id ? { ...x, isDone: !x.isDone } : x
-        ),
-      };
-    });
+  completeTodo = async (todoItem: TodoItemType) => {
+    try {
+      const res = await fetch(`http://localhost:3000/todoList/${todoItem.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ ...todoItem, isDone: !todoItem.isDone }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      const json = await res.json();
+
+      this.setState(({ todoList }) => {
+        // O(logN)
+        const index = todoList.findIndex((x) => x.id === todoItem.id);
+        return {
+          todoList: [
+            ...todoList.slice(0, index),
+            json,
+            ...todoList.slice(index + 1),
+          ],
+        };
+      });
+    } catch (error) {}
   };
 
-  deleteTodo = (id: number) => {
-    this.setState(({ todoList }) => {
-      return {
-        todoList: todoList.filter((x) => x.id !== id),
-      };
-    });
+  deleteTodo = async (id: number) => {
+    try {
+      await fetch(`http://localhost:3000/todoList/${id}`, {
+        method: "DELETE",
+      });
+
+      this.setState(({ todoList }) => {
+        const index = todoList.findIndex((x) => x.id === id);
+        return {
+          todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
+        };
+      });
+    } catch (error) {}
   };
 
   filterTodo = (filterType: FilterType) => {
     this.setState({ filterType });
-  };
-
-  ref1 = (ele: HTMLInputElement) => {
-    this.testRef = ele;
-  };
-
-  ref2 = (ele: HTMLInputElement) => {
-    this.testRef2 = ele;
   };
 
   render() {
@@ -101,27 +139,7 @@ export default class index extends Component<Props, State> {
     return (
       <div className="container">
         <h1>Todo App</h1>
-        <button
-          onClick={() => {
-            console.log(this.testRef.value);
-          }}
-        >
-          Test
-        </button>
-
-        <button
-          onClick={() => {
-            console.log(this.testRef2.value);
-          }}
-        >
-          Test1
-        </button>
-        <TodoForm
-          onSubmit={this.onSubmit}
-          ref1={this.ref1}
-          ref2={this.ref2}
-          ref={(ele) => this.inputRef}
-        />
+        <TodoForm onSubmit={this.onSubmit} ref={this.inputRef} />
         <TodoList
           todoList={todoList}
           filterType={filterType}
