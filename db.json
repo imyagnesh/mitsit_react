@@ -1,3 +1,19 @@
 {
-  "todoList": []
+  "todoList": [
+    {
+      "text": "get millk",
+      "isDone": false,
+      "id": 1
+    },
+    {
+      "text": "learn react",
+      "isDone": true,
+      "id": 2
+    },
+    {
+      "text": "get food",
+      "isDone": false,
+      "id": 3
+    }
+  ]
 }
