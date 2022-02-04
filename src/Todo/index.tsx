@@ -1,4 +1,9 @@
-import React, { Component, FormEvent, createRef } from "react";
+import React, {
+  Component,
+  FormEvent,
+  createRef,
+  HtmlHTMLAttributes,
+} from "react";
 import "./todo.scss";
 import TodoForm from "./todoForm";
 import TodoFilter from "./TodoFilter";
@@ -30,6 +35,9 @@ export default class index extends Component<Props, State> {
   };
 
   inputRef = createRef<HTMLInputElement>();
+  testRef: HTMLInputElement = {} as HTMLInputElement;
+
+  testRef2: HTMLInputElement = {} as HTMLInputElement;
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,6 +86,14 @@ export default class index extends Component<Props, State> {
     this.setState({ filterType });
   };
 
+  ref1 = (ele: HTMLInputElement) => {
+    this.testRef = ele;
+  };
+
+  ref2 = (ele: HTMLInputElement) => {
+    this.testRef2 = ele;
+  };
+
   render() {
     console.log("render");
     const { todoList, filterType } = this.state;
@@ -85,7 +101,27 @@ export default class index extends Component<Props, State> {
     return (
       <div className="container">
         <h1>Todo App</h1>
-        <TodoForm onSubmit={this.onSubmit} ref={this.inputRef} />
+        <button
+          onClick={() => {
+            console.log(this.testRef.value);
+          }}
+        >
+          Test
+        </button>
+
+        <button
+          onClick={() => {
+            console.log(this.testRef2.value);
+          }}
+        >
+          Test1
+        </button>
+        <TodoForm
+          onSubmit={this.onSubmit}
+          ref1={this.ref1}
+          ref2={this.ref2}
+          ref={(ele) => this.inputRef}
+        />
         <TodoList
           todoList={todoList}
           filterType={filterType}

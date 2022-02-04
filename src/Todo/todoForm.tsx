@@ -2,11 +2,13 @@ import React, { FormEvent, memo, forwardRef } from "react";
 
 type Props = {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  ref1: (ele: HTMLInputElement) => void;
+  ref2: (ele: HTMLInputElement) => void;
 };
 
 export type Ref = HTMLInputElement;
 
-const TodoForm = forwardRef<Ref, Props>(({ onSubmit }, ref) => {
+const TodoForm = forwardRef<Ref, Props>(({ onSubmit, ref1, ref2 }, ref) => {
   console.log("Todo Form");
 
   return (
@@ -16,10 +18,21 @@ const TodoForm = forwardRef<Ref, Props>(({ onSubmit }, ref) => {
           First name
         </label>
         <input
-          ref={ref}
+          ref={(ele) => {
+            ref1(ele);
+          }}
           type="text"
           name="todo-text"
           id="todo-text"
+          className="text-input"
+        />
+        <input
+          ref={(ele) => {
+            ref2(ele);
+          }}
+          type="text"
+          name="todo-text1"
+          id="todo-text1"
           className="text-input"
         />
       </div>
