@@ -15,28 +15,18 @@ const TodoList = ({
   completeTodo,
   deleteTodo,
 }: Props) => {
-  const render = (c: TodoItemType) => (
-    <TodoItem
-      key={c.id}
-      todoItem={c}
-      completeTodo={completeTodo}
-      deleteTodo={deleteTodo}
-    />
-  );
-
   return (
     <div className="flex-1">
-      {todoList.reduce((p, c) => {
-        if (
-          filterType == FilterType.all ||
-          (filterType === FilterType.pending && !c.isDone) ||
-          (filterType == FilterType.completed && c.isDone)
-        ) {
-          return [...p, render(c)];
-        }
-
-        return p;
-      }, [])}
+      {todoList.map((item) => {
+        return (
+          <TodoItem
+            key={item.id}
+            todoItem={item}
+            completeTodo={completeTodo}
+            deleteTodo={deleteTodo}
+          />
+        );
+      })}
     </div>
   );
 };

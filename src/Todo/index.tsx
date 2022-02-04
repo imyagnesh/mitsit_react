@@ -23,13 +23,32 @@ export enum FilterType {
   completed = "completed",
 }
 
+interface IAppStatus {
+  state: "LOADING" | "ERROR";
+  error?: Error;
+}
+
+interface IWithoutIdTypes extends IAppStatus {
+  type: "LOAD_TODO" | "ADD_TODO";
+  id?: never;
+}
+
+interface IWithIdType extends IAppStatus {
+  type: "UPDATE_TODO" | "DELETE_TODO";
+  id: number;
+}
+
+type AppStatus = IWithoutIdTypes | IWithIdType;
+
 type State = {
   todoList: TodoItemType[];
   filterType: FilterType;
+  appStatus: AppStatus[];
 };
 
 export default class index extends Component<Props, State> {
   state = {
+    appStatus: [],
     todoList: [],
     filterType: FilterType.all,
   };
@@ -37,17 +56,45 @@ export default class index extends Component<Props, State> {
   inputRef = createRef<HTMLInputElement>();
 
   async componentDidMount() {
-    this.loadData();
+    this.loadData(FilterType.all);
   }
 
-  loadData = async () => {
+  loadData = async (filterType: FilterType) => {
     try {
-      const res = await fetch("http://localhost:3000/todoList");
+      this.setState(({ appStatus }) => {
+        return {
+          appStatus: [...appStatus, { type: "LOAD_TODO", state: "LOADING" }],
+        };
+      });
+
+      let url = "http://localhost:3000/todoList";
+      if (filterType !== FilterType.all) {
+        url = `${url}?isDone=${filterType === FilterType.completed}`;
+      }
+
+      const res = await fetch(url);
       const json = await res.json();
       this.setState({
         todoList: json,
+        filterType,
       });
-    } catch (error) {}
+      this.setState(({ appStatus }) => {
+        return {
+          appStatus: appStatus.filter((x) => x.type !== "LOAD_TODO"),
+        };
+      });
+    } catch (error) {
+      this.setState(({ appStatus }) => {
+        return {
+          appStatus: appStatus.map((x) => {
+            if (x.type === "LOAD_TODO") {
+              return { ...x, state: "ERROR", error: error as Error };
+            }
+            return x;
+          }),
+        };
+      });
+    }
   };
 
   onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -128,13 +175,12 @@ export default class index extends Component<Props, State> {
     } catch (error) {}
   };
 
-  filterTodo = (filterType: FilterType) => {
-    this.setState({ filterType });
-  };
-
   render() {
-    console.log("render");
-    const { todoList, filterType } = this.state;
+    const { todoList, filterType, appStatus } = this.state;
+
+    if (appStatus.some((x) => x.type === "LOAD_TODO")) {
+      return <h1>Loading...</h1>;
+    }
 
     return (
       <div className="container">
@@ -146,7 +192,7 @@ export default class index extends Component<Props, State> {
           completeTodo={this.completeTodo}
           deleteTodo={this.deleteTodo}
         />
-        <TodoFilter filterTodo={this.filterTodo} />
+        <TodoFilter filterType={filterType} filterTodo={this.loadData} />
       </div>
     );
   }
