@@ -8,30 +8,32 @@ type Props = {
 };
 
 const TodoFilter = ({ filterTodo, filterType }: Props) => {
+  // console.log("TodoFilter render");
+
   return (
     <div className="flex">
       <button
-        onClick={() => filterTodo(FilterType.all)}
+        onClick={() => filterTodo("all")}
         className={classNames("flex-1 py-2 bg-blue-500 text-white", {
-          "bg-green-500": filterType === FilterType.all,
+          "bg-green-500": filterType === "all",
         })}
         type="button"
       >
         All
       </button>
       <button
-        onClick={() => filterTodo(FilterType.pending)}
+        onClick={() => filterTodo("pending")}
         className={classNames("flex-1 py-2 bg-blue-500 text-white", {
-          "bg-green-500": filterType === FilterType.pending,
+          "bg-green-500": filterType === "pending",
         })}
         type="button"
       >
         Pending
       </button>
       <button
-        onClick={() => filterTodo(FilterType.completed)}
+        onClick={() => filterTodo("completed")}
         className={classNames("flex-1 py-2 bg-blue-500 text-white", {
-          "bg-green-500": filterType === FilterType.completed,
+          "bg-green-500": filterType === "completed",
         })}
         type="button"
       >
@@ -41,4 +43,6 @@ const TodoFilter = ({ filterTodo, filterType }: Props) => {
   );
 };
 
-export default memo(TodoFilter);
+export default memo(TodoFilter, () => {
+  return true;
+});

@@ -9,7 +9,7 @@ type Props = {
 export type Ref = HTMLInputElement;
 
 const TodoForm = forwardRef<Ref, Props>(({ onSubmit, status }, ref) => {
-  console.log("Todo Form");
+  // console.log("Todo Form");
 
   return (
     <form className="flex justify-center" onSubmit={onSubmit}>

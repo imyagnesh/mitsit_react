@@ -17,11 +17,7 @@ export type TodoItemType = {
 
 type Props = {};
 
-export enum FilterType {
-  all = "all",
-  pending = "pending",
-  completed = "completed",
-}
+export type FilterType = "all" | "pending" | "completed";
 
 type LoadingAppStatus = {
   state: "LOADING";
@@ -64,40 +60,41 @@ export default class index extends Component<Props, State> {
   state = {
     appStatus: [] as AppStatus[],
     todoList: [] as TodoItemType[],
-    filterType: FilterType.all,
+    filterType: "all" as FilterType,
   };
 
   inputRef = createRef<HTMLInputElement>();
 
   async componentDidMount() {
-    this.loadData(FilterType.all);
+    this.loadData("all");
   }
 
-  setLoadingStatus = (type: StatusType) => {
+  setLoadingStatus = (type: StatusType, id?: number) => {
     this.setState(({ appStatus }) => {
       const newStatus: AppStatus = {
-        type,
         state: "LOADING",
-      } as WithoutIdTypes & LoadingAppStatus;
+        type,
+        id: id,
+      } as BaseTypeStatus & LoadingAppStatus;
       return {
         appStatus: [...appStatus, newStatus],
       };
     });
   };
 
-  setSuccessStatus = (type: StatusType) => {
+  setSuccessStatus = (type: StatusType, id?: number) => {
     this.setState(({ appStatus }) => {
       return {
-        appStatus: appStatus.filter((x) => x.type !== type),
+        appStatus: appStatus.filter((x) => !(x.type == type && x.id === id)),
       };
     });
   };
 
-  setErrorStatus = (type: StatusType, error: Error) => {
+  setErrorStatus = (type: StatusType, error: Error, id?: number) => {
     this.setState(({ appStatus }) => {
       return {
         appStatus: appStatus.map((x) => {
-          if (x.type === type) {
+          if (x.type === type && x.id === id) {
             return { ...x, state: "ERROR", error: error as Error };
           }
           return x;
@@ -112,8 +109,8 @@ export default class index extends Component<Props, State> {
       this.setLoadingStatus(type);
 
       let url = "http://localhost:3000/todoList";
-      if (filterType !== FilterType.all) {
-        url = `${url}?isDone=${filterType === FilterType.completed}`;
+      if (filterType !== "all") {
+        url = `${url}?isDone=${filterType === "completed"}`;
       }
 
       const res = await fetch(url);
@@ -122,7 +119,7 @@ export default class index extends Component<Props, State> {
         todoList: json,
         filterType,
       });
-      this.setSuccessStatus(type);
+      this.setSuccessStatus(type, undefined);
     } catch (error) {
       this.setErrorStatus(type, error as Error);
     }
@@ -170,7 +167,9 @@ export default class index extends Component<Props, State> {
   };
 
   completeTodo = async (todoItem: TodoItemType) => {
+    const type: StatusType = "UPDATE_TODO";
     try {
+      this.setLoadingStatus(type, todoItem.id);
       const res = await fetch(`http://localhost:3000/todoList/${todoItem.id}`, {
         method: "PUT",
         body: JSON.stringify({ ...todoItem, isDone: !todoItem.isDone }),
@@ -193,11 +192,16 @@ export default class index extends Component<Props, State> {
           ],
         };
       });
-    } catch (error) {}
+      this.setSuccessStatus(type, todoItem.id);
+    } catch (error) {
+      this.setErrorStatus(type, error as Error, todoItem.id);
+    }
   };
 
   deleteTodo = async (id: number) => {
+    const type: StatusType = "DELETE_TODO";
     try {
+      this.setLoadingStatus(type, id);
       await fetch(`http://localhost:3000/todoList/${id}`, {
         method: "DELETE",
       });
@@ -208,10 +212,15 @@ export default class index extends Component<Props, State> {
           todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
         };
       });
-    } catch (error) {}
+      this.setSuccessStatus(type, id);
+    } catch (error) {
+      this.setErrorStatus(type, error as Error, id);
+    }
   };
 
   render() {
+    console.log("App rerender");
+
     const { todoList, filterType, appStatus } = this.state;
 
     const loadingStatus = appStatus.find((x) => x.type === "LOAD_TODO");
@@ -235,9 +244,11 @@ export default class index extends Component<Props, State> {
         />
         <TodoList
           todoList={todoList}
-          filterType={filterType}
           completeTodo={this.completeTodo}
           deleteTodo={this.deleteTodo}
+          status={appStatus.filter(
+            (x) => x.type === "UPDATE_TODO" || x.type === "DELETE_TODO"
+          )}
         />
         <TodoFilter filterType={filterType} filterTodo={this.loadData} />
       </div>

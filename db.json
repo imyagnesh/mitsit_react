@@ -7,23 +7,33 @@
     },
     {
       "text": "learn react",
-      "isDone": true,
+      "isDone": false,
       "id": 2
     },
     {
-      "text": "get food",
+      "text": "hello",
       "isDone": false,
       "id": 3
     },
     {
-      "text": "get millk",
+      "text": "hello",
       "isDone": false,
       "id": 4
     },
     {
-      "text": "helllo",
+      "text": "asdfasd",
       "isDone": false,
       "id": 5
+    },
+    {
+      "text": "hello",
+      "isDone": false,
+      "id": 6
+    },
+    {
+      "text": "hello",
+      "isDone": false,
+      "id": 7
     }
   ]
 }
