@@ -1,12 +1,14 @@
 import React, { FormEvent, memo, forwardRef } from "react";
+import { AppStatus } from ".";
 
 type Props = {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  status: AppStatus | undefined;
 };
 
 export type Ref = HTMLInputElement;
 
-const TodoForm = forwardRef<Ref, Props>(({ onSubmit }, ref) => {
+const TodoForm = forwardRef<Ref, Props>(({ onSubmit, status }, ref) => {
   console.log("Todo Form");
 
   return (
@@ -23,7 +25,11 @@ const TodoForm = forwardRef<Ref, Props>(({ onSubmit }, ref) => {
           className="text-input"
         />
       </div>
-      <button type="submit" className="btn">
+      <button
+        disabled={status && status.state === "LOADING"}
+        type="submit"
+        className="btn disabled:bg-slate-500"
+      >
         Save
       </button>
     </form>
