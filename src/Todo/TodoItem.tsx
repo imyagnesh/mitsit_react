@@ -1,11 +1,12 @@
 import React, { memo } from "react";
 import cn from "classnames";
-import { AppStatus, TodoItemType } from ".";
+import { TodoItemType } from ".";
+import { AppStatus } from "../types/common";
 
 type Props = {
   todoItem: TodoItemType;
   completeTodo: (todoItem: TodoItemType) => void;
-  deleteTodo: (id: number) => void;
+  deleteTodo: (todoItem: TodoItemType) => void;
   status: AppStatus | undefined;
 };
 
@@ -31,7 +32,7 @@ const TodoItem = ({ todoItem, completeTodo, deleteTodo, status }: Props) => {
       <button
         disabled={status?.type === "DELETE_TODO" && status.state === "LOADING"}
         className="btn disabled:bg-slate-400"
-        onClick={() => deleteTodo(todoItem.id)}
+        onClick={() => deleteTodo(todoItem)}
       >
         Delete
       </button>

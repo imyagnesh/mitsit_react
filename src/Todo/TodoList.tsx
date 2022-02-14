@@ -1,11 +1,12 @@
 import React from "react";
-import { AppStatus, FilterType, TodoItemType } from ".";
+import { TodoItemType } from ".";
+import { AppStatus } from "../types/common";
 import TodoItem from "./TodoItem";
 
 type Props = {
   todoList: TodoItemType[];
   completeTodo: (todoItem: TodoItemType) => void;
-  deleteTodo: (id: number) => void;
+  deleteTodo: (todoItem: TodoItemType) => void;
   status: AppStatus[];
 };
 

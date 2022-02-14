@@ -1,38 +1,13 @@
 {
   "todoList": [
     {
-      "text": "get millk",
-      "isDone": false,
-      "id": 1
-    },
-    {
       "text": "learn react",
       "isDone": false,
       "id": 2
     },
     {
-      "text": "hello",
-      "isDone": false,
-      "id": 3
-    },
-    {
-      "text": "hello",
-      "isDone": false,
-      "id": 4
-    },
-    {
-      "text": "asdfasd",
-      "isDone": false,
-      "id": 5
-    },
-    {
-      "text": "hello",
-      "isDone": false,
-      "id": 6
-    },
-    {
-      "text": "hello",
-      "isDone": false,
+      "text": "added through reducer",
+      "isDone": true,
       "id": 7
     }
   ]
