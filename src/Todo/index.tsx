@@ -1,17 +1,9 @@
-import React, {
-  FormEvent,
-  memo,
-  useRef,
-  useEffect,
-  useCallback,
-  useReducer,
-} from "react";
+import React, { memo, useRef, useEffect } from "react";
 import "./todo.scss";
 import TodoForm from "./todoForm";
 import TodoFilter from "./TodoFilter";
 import TodoList from "./TodoList";
-import todoReducer, { TodoInitValues } from "../reducers/todoReducer";
-import { FilterType } from "../types/todo";
+import useTodo from "../hooks/useTodo";
 
 export type TodoItemType = {
   id: number;
@@ -22,169 +14,17 @@ export type TodoItemType = {
 type Props = {};
 
 const Todo: React.FC = () => {
-  const [{ appStatus, filterType, todoList }, dispatch] = useReducer(
-    todoReducer,
-    TodoInitValues
-  );
-
   const inputRef = useRef<HTMLInputElement>({} as HTMLInputElement);
 
-  const loadData = useCallback(async (ft: FilterType) => {
-    const type = "LOAD_TODO";
-    try {
-      dispatch({
-        type: "LOAD_TODO_REQUEST",
-        appStatus: { type, state: "LOADING" },
-      });
-
-      let url = "http://localhost:3000/todoList";
-      if (ft !== "all") {
-        url = `${url}?isDone=${ft === "completed"}`;
-      }
-      const res = await fetch(url);
-      const json = await res.json();
-      dispatch({
-        type: "LOAD_TODO_SUCCESS",
-        appStatus: { type, state: "SUCCESS" },
-        filterType: ft,
-        todoList: json,
-      });
-    } catch (error) {
-      dispatch({
-        type: "LOAD_TODO_FAIL",
-        appStatus: {
-          state: "ERROR",
-          type,
-          error: error as Error,
-        },
-      });
-    }
-  }, []);
-
-  const completeTodo = useCallback(async (todoItem: TodoItemType) => {
-    const type = "UPDATE_TODO";
-    try {
-      dispatch({
-        type: "UPDATE_TODO_REQUEST",
-        appStatus: {
-          type,
-          id: todoItem.id,
-          state: "LOADING",
-        },
-      });
-      const res = await fetch(`http://localhost:3000/todoList/${todoItem.id}`, {
-        method: "PUT",
-        body: JSON.stringify({ ...todoItem, isDone: !todoItem.isDone }),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const json = await res.json();
-      dispatch({
-        type: "UPDATE_TODO_SUCCESS",
-        appStatus: {
-          state: "SUCCESS",
-          type,
-          id: todoItem.id,
-        },
-        todoItem: json,
-      });
-    } catch (error) {
-      dispatch({
-        type: "UPDATE_TODO_FAIL",
-        appStatus: {
-          state: "ERROR",
-          type,
-          id: todoItem.id,
-          error: error as Error,
-        },
-      });
-    }
-  }, []);
-
-  const deleteTodo = useCallback(async (todoItem: TodoItemType) => {
-    const type = "DELETE_TODO";
-    try {
-      dispatch({
-        type: "DELETE_TODO_REQUEST",
-        appStatus: {
-          type,
-          id: todoItem.id,
-          state: "LOADING",
-        },
-      });
-      await fetch(`http://localhost:3000/todoList/${todoItem.id}`, {
-        method: "DELETE",
-      });
-      dispatch({
-        type: "DELETE_TODO_SUCCESS",
-        appStatus: {
-          state: "SUCCESS",
-          type: "DELETE_TODO",
-          id: todoItem.id,
-        },
-        todoItem,
-      });
-    } catch (error) {
-      dispatch({
-        type: "DELETE_TODO_FAIL",
-        appStatus: {
-          state: "ERROR",
-          type,
-          id: todoItem.id,
-          error: error as Error,
-        },
-      });
-    }
-  }, []);
-
-  const onSubmit = useCallback(async (event: FormEvent<HTMLFormElement>) => {
-    const type = "ADD_TODO";
-    try {
-      event.preventDefault();
-      const text = inputRef.current?.value;
-      if (text) {
-        dispatch({
-          type: "ADD_TODO_REQUEST",
-          appStatus: {
-            type,
-            state: "LOADING",
-          },
-        });
-        const res = await fetch("http://localhost:3000/todoList", {
-          method: "POST",
-          body: JSON.stringify({
-            text: text,
-            isDone: false,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
-        const json = await res.json();
-        dispatch({
-          type: "ADD_TODO_SUCCESS",
-          todoItem: json,
-          appStatus: {
-            type,
-            state: "SUCCESS",
-          },
-        });
-        inputRef.current.value = "";
-      }
-    } catch (error) {
-      dispatch({
-        type: "ADD_TODO_FAIL",
-        appStatus: {
-          state: "ERROR",
-          type,
-          error: error as Error,
-        },
-      });
-    }
-  }, []);
+  const {
+    loadData,
+    onSubmit,
+    deleteTodo,
+    completeTodo,
+    appStatus,
+    filterType,
+    todoList,
+  } = useTodo(inputRef);
 
   useEffect(() => {
     loadData("all");
