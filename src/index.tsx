@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, StrictMode } from "react";
 import ReactDOM from "react-dom";
 import ErrorBoundary from "./ErrorBoundary";
 import Todo from "./Todo";
 import "./root.scss";
 
 ReactDOM.render(
-  <ErrorBoundary>
-    <Todo />
-  </ErrorBoundary>,
+  <StrictMode>
+    <ErrorBoundary>
+      <Todo />
+    </ErrorBoundary>
+  </StrictMode>,
   document.getElementById("root")
 );
 

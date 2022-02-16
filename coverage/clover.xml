@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1645022819081" clover="3.2.0">
+  <project timestamp="1645022819081" name="All files">
+    <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3" elements="11" coveredelements="11" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
+    <file name="TodoItem.tsx" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/Todo/TodoItem.tsx">
+      <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+      <line num="13" count="1" type="stmt"/>
+      <line num="16" count="7" type="stmt"/>
+      <line num="27" count="1" type="stmt"/>
+      <line num="41" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

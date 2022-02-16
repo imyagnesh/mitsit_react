@@ -1,3 +1,9 @@
 {
-  "todoList": []
+  "todoList": [
+    {
+      "text": "hello",
+      "isDone": true,
+      "id": 1
+    }
+  ]
 }

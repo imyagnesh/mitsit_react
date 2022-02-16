@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { memo } from "react";
-import { FilterType } from ".";
+import { FilterType } from "../types/todo";
 
 type Props = {
   filterTodo: (filterType: FilterType) => void;
@@ -43,6 +43,4 @@ const TodoFilter = ({ filterTodo, filterType }: Props) => {
   );
 };
 
-export default memo(TodoFilter, () => {
-  return true;
-});
+export default memo(TodoFilter);
