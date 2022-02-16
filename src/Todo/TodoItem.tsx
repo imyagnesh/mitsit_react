@@ -17,7 +17,7 @@ const TodoItem = ({ todoItem, completeTodo, deleteTodo, status }: Props) => {
     <div
       data-testid="todo_item_container"
       key={todoItem.id}
-      className="flex items-center m-2"
+      className="flex items-center m-3"
     >
       <input
         type="checkbox"

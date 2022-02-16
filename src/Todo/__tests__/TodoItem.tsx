@@ -32,6 +32,11 @@ const render = ({ ...props } = {}) => {
 describe("TodoItem Component", () => {
   let renderItem: typeof render;
 
+  test("should compare snapshot", () => {
+    const { container } = render();
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
   test("should render TodoItem", () => {
     // const container = screen.queryByTestId("todo_item_container");
     const { container } = render();
