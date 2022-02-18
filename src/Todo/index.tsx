@@ -1,4 +1,4 @@
-import React, { memo, useRef, useEffect } from "react";
+import React, { memo, useRef, useEffect, useMemo } from "react";
 import "./todo.scss";
 import TodoForm from "./todoForm";
 import TodoFilter from "./TodoFilter";
@@ -30,10 +30,18 @@ const Todo: React.FC = () => {
     loadData("all");
   }, []);
 
-  console.log("todo component");
+  const loadDataStatus = appStatus.find((x) => x.type === "LOAD_TODO");
+
+  if (loadDataStatus && loadDataStatus.state === "LOADING") {
+    return <h1 data-testid="load_todo">Loading...</h1>;
+  }
+
+  if (loadDataStatus && loadDataStatus.state === "ERROR") {
+    return <h1 data-testid="load_todo_fail">{loadDataStatus.error.message}</h1>;
+  }
 
   return (
-    <div className="container">
+    <div data-testid="todo_container" className="container">
       <h1>Todo App</h1>
       <TodoForm
         onSubmit={onSubmit}

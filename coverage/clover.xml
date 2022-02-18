@@ -1,13 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1645023226843" clover="3.2.0">
-  <project timestamp="1645023226843" name="All files">
-    <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3" elements="11" coveredelements="11" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
-    <file name="TodoItem.tsx" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/Todo/TodoItem.tsx">
-      <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
-      <line num="13" count="1" type="stmt"/>
-      <line num="16" count="8" type="stmt"/>
-      <line num="27" count="1" type="stmt"/>
-      <line num="41" count="1" type="stmt"/>
-    </file>
+<coverage generated="1645195992817" clover="3.2.0">
+  <project timestamp="1645195992817" name="All files">
+    <metrics statements="88" coveredstatements="61" conditionals="46" coveredconditionals="36" methods="29" coveredmethods="19" elements="163" coveredelements="116" complexity="0" loc="88" ncloc="88" packages="4" files="8" classes="8"/>
+    <package name="Todo">
+      <metrics statements="29" coveredstatements="25" conditionals="16" coveredconditionals="16" methods="16" coveredmethods="12"/>
+      <file name="TodoFilter.tsx" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/Todo/TodoFilter.tsx">
+        <metrics statements="5" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+      </file>
+      <file name="TodoItem.tsx" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/Todo/TodoItem.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="16" count="11" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+      </file>
+      <file name="TodoList.tsx" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/Todo/TodoList.tsx">
+        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="11" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/Todo/index.tsx">
+        <metrics statements="13" coveredstatements="13" conditionals="10" coveredconditionals="10" methods="5" coveredmethods="5"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="24" type="stmt"/>
+        <line num="27" count="23" type="stmt"/>
+        <line num="29" count="23" type="stmt"/>
+        <line num="30" count="7" type="stmt"/>
+        <line num="33" count="23" type="stmt"/>
+        <line num="35" count="23" type="cond" truecount="4" falsecount="0"/>
+        <line num="36" count="7" type="stmt"/>
+        <line num="39" count="16" type="cond" truecount="4" falsecount="0"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="43" count="11" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="56" count="1" type="cond" truecount="2" falsecount="0"/>
+      </file>
+      <file name="todoForm.tsx" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/Todo/todoForm.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="14" count="11" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="hooks">
+      <metrics statements="39" coveredstatements="24" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="3"/>
+      <file name="useTodo.ts" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/hooks/useTodo.ts">
+        <metrics statements="39" coveredstatements="24" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="3"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="23" type="stmt"/>
+        <line num="12" count="23" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="15" count="7" type="stmt"/>
+        <line num="20" count="7" type="stmt"/>
+        <line num="21" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="7" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="32" count="5" type="stmt"/>
+        <line num="43" count="23" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="83" count="23" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="117" count="23" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="120" count="1" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="122" count="1" type="stmt"/>
+        <line num="123" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="124" count="1" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="143" count="1" type="stmt"/>
+        <line num="146" count="0" type="stmt"/>
+        <line num="148" count="0" type="stmt"/>
+        <line num="161" count="23" type="stmt"/>
+      </file>
+    </package>
+    <package name="reducers">
+      <metrics statements="19" coveredstatements="11" conditionals="26" coveredconditionals="18" methods="8" coveredmethods="4"/>
+      <file name="todoReducer.ts" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/reducers/todoReducer.ts">
+        <metrics statements="19" coveredstatements="11" conditionals="26" coveredconditionals="18" methods="8" coveredmethods="4"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="135" count="16" type="cond" truecount="11" falsecount="3"/>
+        <line num="140" count="8" type="stmt"/>
+        <line num="144" count="8" type="stmt"/>
+        <line num="148" count="2" type="stmt"/>
+        <line num="153" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="159" count="1" type="stmt"/>
+        <line num="163" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="169" count="0" type="stmt"/>
+        <line num="170" count="0" type="stmt"/>
+        <line num="178" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="185" count="0" type="stmt"/>
+        <line num="192" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="202" count="5" type="stmt"/>
+        <line num="205" count="5" type="cond" truecount="3" falsecount="1"/>
+        <line num="206" count="5" type="stmt"/>
+        <line num="208" count="0" type="stmt"/>
+        <line num="213" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="axiosInstance.ts" path="/Users/yagneshmodh/Documents/projects/mitsit_react/src/utils/axiosInstance.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>

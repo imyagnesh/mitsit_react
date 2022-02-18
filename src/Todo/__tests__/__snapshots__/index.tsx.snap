@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo Component should take snapshot 1`] = `
+<h1>
+  Loading...
+</h1>
+`;
