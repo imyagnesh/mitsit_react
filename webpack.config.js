@@ -29,6 +29,11 @@ module.exports = {
         exclude: /node_modules/,
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
       },
+      {
+        test: /\.svg$/,
+        issuer: /\.[jt]sx?$/,
+        use: [{ loader: "@svgr/webpack", options: { typescript: true } }],
+      },
     ],
   },
   plugins: [
@@ -40,5 +45,6 @@ module.exports = {
   devServer: {
     port: 9000,
     open: true,
+    historyApiFallback: true,
   },
 };

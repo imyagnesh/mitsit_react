@@ -6,6 +6,19 @@
   ],
   "plugins": [
     "@babel/plugin-proposal-private-methods",
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "pages": "./src/pages",
+          "assets": "./src/assets",
+          "layout": "./src/layout",
+          "context": "./src/context",
+          "components": "./src/components"
+        }
+      }
+    ]
   ]
 }
