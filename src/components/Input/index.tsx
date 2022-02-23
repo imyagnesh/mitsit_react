@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from "react";
 import classnames from "classnames";
-import { ThemeConsumer } from "context/themeContext";
+import { FastFieldProps } from "formik";
 
 type TopBorderType = {
   isFirst?: boolean;
@@ -14,17 +14,23 @@ type BottomBorderType = {
 
 type BorderType = TopBorderType | BottomBorderType;
 
-type Props = BorderType & InputHTMLAttributes<HTMLInputElement>;
+type Props = { error?: string } & BorderType &
+  InputHTMLAttributes<HTMLInputElement> &
+  FastFieldProps;
 
-const Input = ({ isFirst, isLast, id, placeholder, ...props }: Props) => {
+const Input = ({
+  field,
+  form: { touched, errors },
+  isFirst,
+  isLast,
+  id,
+  placeholder,
+  ...props
+}: Props) => {
+  const error = touched[field.name] ? errors[field.name] : undefined;
+
   return (
     <div>
-      <ThemeConsumer>
-        {(values) => {
-          console.log("Child", values);
-          return null;
-        }}
-      </ThemeConsumer>
       <label htmlFor={id} className="sr-only">
         {placeholder}
       </label>
@@ -36,8 +42,10 @@ const Input = ({ isFirst, isLast, id, placeholder, ...props }: Props) => {
           {
             "rounded-t-md": !!isFirst,
             "rounded-b-md": !!isLast,
+            "border-red-500": !!error,
           }
         )}
+        {...field}
         {...props}
       />
     </div>
