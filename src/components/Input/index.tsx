@@ -12,7 +12,7 @@ type BottomBorderType = {
   isLast?: boolean;
 };
 
-type BorderType = TopBorderType | BottomBorderType;
+export type BorderType = TopBorderType | BottomBorderType;
 
 type Props = { error?: string } & BorderType &
   InputHTMLAttributes<HTMLInputElement> &
