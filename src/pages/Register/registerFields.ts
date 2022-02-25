@@ -1,11 +1,6 @@
 import CustomDatePicker from "components/datePicker";
 import Input, { BorderType } from "components/Input";
-import {
-  FastFieldProps,
-  FieldConfig,
-  GenericFieldHTMLAttributes,
-} from "formik";
-import { ComponentType } from "react";
+import { FieldConfig, GenericFieldHTMLAttributes } from "formik";
 
 export const registerInitValue = {
   name: "",
@@ -13,6 +8,7 @@ export const registerInitValue = {
   email: "",
   password: "",
   confirmPassword: "",
+  serverError: undefined,
 };
 
 export type FieldType = BorderType & GenericFieldHTMLAttributes & FieldConfig;
@@ -21,7 +17,7 @@ export const registerFields: FieldType[] = [
   {
     id: "name",
     name: "name",
-    component: Input as ComponentType,
+    component: Input,
     placeholder: "Name",
     autoComplete: "name",
     isFirst: true,
@@ -47,7 +43,7 @@ export const registerFields: FieldType[] = [
   {
     id: "email-address",
     name: "email",
-    component: Input as ComponentType,
+    component: Input,
     type: "email",
     placeholder: "Email address",
     autoComplete: "email",
@@ -63,7 +59,7 @@ export const registerFields: FieldType[] = [
   {
     id: "password",
     name: "password",
-    component: Input as ComponentType,
+    component: Input,
     type: "password",
     placeholder: "Password",
     autoComplete: "new-password",
@@ -77,7 +73,7 @@ export const registerFields: FieldType[] = [
   {
     id: "confirm-password",
     name: "confirmPassword",
-    component: Input as ComponentType,
+    component: Input,
     type: "password",
     placeholder: "Confirm Password",
     autoComplete: "new-password",
@@ -85,10 +81,16 @@ export const registerFields: FieldType[] = [
     validate: (value: string) => {
       if (!value) {
         return "Required...";
-      } else if (value !== password.value) {
-        return "Error.";
       }
       return undefined;
     },
   },
 ];
+
+export const validateRegister = (values: typeof registerInitValue) => {
+  const errors = {} as typeof values;
+  if (values.password !== values.confirmPassword) {
+    errors.confirmPassword = "Password should match with confirm Password";
+  }
+  return errors;
+};

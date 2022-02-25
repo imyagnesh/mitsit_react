@@ -1,18 +1,18 @@
 import Input from "components/Input";
 import { FieldType } from "pages/Register/registerFields";
-import { ComponentType } from "react";
 
 export const loginInitValue = {
   email: "",
   password: "",
   rememberMe: false,
+  serverError: undefined,
 };
 
 export const loginFields: FieldType[] = [
   {
     id: "email-address",
     name: "email",
-    component: Input as ComponentType,
+    component: Input,
     type: "email",
     placeholder: "Email address",
     autoComplete: "email",
@@ -29,7 +29,7 @@ export const loginFields: FieldType[] = [
   {
     id: "password",
     name: "password",
-    component: Input as ComponentType,
+    component: Input,
     type: "password",
     placeholder: "Password",
     autoComplete: "current-password",

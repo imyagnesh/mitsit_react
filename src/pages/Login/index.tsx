@@ -1,19 +1,40 @@
 import React from "react";
 import CustomForm from "components/customForm";
-import { FastField } from "formik";
+import { FastField, FormikHelpers } from "formik";
 import Checkbox from "components/checkbox";
 import { loginFields, loginInitValue } from "./loginFields";
+import axiosInstance from "utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Login = (props: Props) => {
+  const navigate = useNavigate();
+
+  const handleLogin = async (
+    values: typeof loginInitValue,
+    actions: FormikHelpers<typeof loginInitValue>
+  ) => {
+    try {
+      const { rememberMe, serverError, ...rest } = values;
+      const res = await axiosInstance.post("login", rest);
+      sessionStorage.setItem("@token", JSON.stringify(res.data));
+      actions.resetForm();
+      navigate("/home", { replace: true });
+    } catch (error) {
+      let message = "Something went wrong try after sometime.";
+      if (error instanceof Error) {
+        message = error.message;
+      }
+      actions.setErrors({ serverError: message });
+    }
+  };
+
   return (
     <CustomForm
       initialValues={loginInitValue}
       fields={loginFields}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
+      onSubmit={handleLogin}
       btnProps={{
         children: "Sign In",
       }}

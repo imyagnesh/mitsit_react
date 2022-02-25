@@ -5,5 +5,14 @@
       "isDone": true,
       "id": 1
     }
+  ],
+  "users": [
+    {
+      "email": "yagnesh.modh@gmail.com",
+      "password": "$2a$10$H3HvSS7OqNhVJE4/lPmHi.0VZaLufogZmxay.dl1TZz0Tg3vN19XW",
+      "birthDate": "2022-02-25T13:50:21.436Z",
+      "name": "Yagnesh Modh",
+      "id": 1
+    }
   ]
 }

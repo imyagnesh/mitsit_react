@@ -1,28 +1,49 @@
 import React from "react";
 import CustomForm from "components/customForm";
-import { registerFields, registerInitValue } from "./registerFields";
+import {
+  registerFields,
+  registerInitValue,
+  validateRegister,
+} from "./registerFields";
+import { FormikHelpers } from "formik";
+import axiosInstance from "utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const Register = (props: Props) => {
+  const navigate = useNavigate();
+  const handleRegister = async (
+    values: typeof registerInitValue,
+    actions: FormikHelpers<typeof registerInitValue>
+  ) => {
+    try {
+      const { serverError, confirmPassword, birthDate, ...rest } = values;
+      const res = await axiosInstance.post("register", {
+        birthDate: birthDate.toISOString(),
+        ...rest,
+      });
+      sessionStorage.setItem("@token", JSON.stringify(res.data));
+      actions.resetForm();
+      navigate("/home", { replace: true });
+    } catch (error) {
+      let message = "Something went wrong try after sometime.";
+      if (error instanceof Error) {
+        message = error.message;
+      }
+      actions.setErrors({ serverError: message });
+    }
+  };
+
   return (
     <CustomForm
       initialValues={registerInitValue}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
+      onSubmit={handleRegister}
       btnProps={{
         children: "Sign Up",
       }}
       fields={registerFields}
-      // validate={(values) => {
-      //   const errors = {} as typeof values;
-      //   if (values.password !== values.confirmPassword) {
-      //     errors.confirmPassword =
-      //       "Password should match with confirm Password";
-      //   }
-      //   return errors;
-      // }}
+      validate={validateRegister}
     />
   );
 };
