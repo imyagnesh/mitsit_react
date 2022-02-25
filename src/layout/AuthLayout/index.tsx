@@ -1,10 +1,19 @@
+import { useAuth } from "context/authContext";
 import { ThemeConsumer } from "context/themeContext";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 
 type Props = {};
 
 const AuthLayout = (props: Props) => {
+  const { session } = useAuth();
+
+  console.log("session", session);
+
+  if (session) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">

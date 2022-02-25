@@ -1,5 +1,6 @@
 import { ThemeProvider } from "context/themeContext";
 import AuthLayout from "layout/AuthLayout";
+import MainLayout from "layout/MainLayout";
 import NotFound from "pages/404";
 import Home from "pages/Home";
 import Login from "pages/Login";
@@ -12,7 +13,11 @@ type Props = {};
 const App = (props: Props) => {
   return (
     <Routes>
-      <Route path="/" element={<AuthLayout />}>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+      </Route>
+
+      <Route path="/auth" element={<AuthLayout />}>
         <Route
           index
           element={
@@ -21,9 +26,9 @@ const App = (props: Props) => {
             </ThemeProvider>
           }
         />
-        <Route path="/register" element={<Register />} />
+        <Route path="/auth/register" element={<Register />} />
       </Route>
-      <Route path="/home" element={<Home />} />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -49,6 +49,8 @@
     "webpack-dev-server": "^4.7.3"
   },
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "@heroicons/react": "^1.0.5",
     "@types/react-addons-shallow-compare": "^0.14.22",
     "@types/react-datepicker": "^4.3.4",
     "axios": "^0.26.0",
