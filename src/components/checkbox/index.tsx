@@ -1,5 +1,5 @@
 import { FastFieldProps } from "formik";
-import React from "react";
+import React, { memo } from "react";
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> &
   React.LabelHTMLAttributes<HTMLLabelElement> &
@@ -11,6 +11,8 @@ const Checkbox = ({
   children,
   ...props
 }: Props) => {
+  console.log("checkbox");
+
   return (
     <div className="flex items-center">
       <input
@@ -29,4 +31,4 @@ const Checkbox = ({
   );
 };
 
-export default Checkbox;
+export default memo(Checkbox);

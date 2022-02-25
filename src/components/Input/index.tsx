@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, memo } from "react";
 import classnames from "classnames";
 import { FastFieldProps } from "formik";
 
@@ -52,4 +52,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default memo(Input);

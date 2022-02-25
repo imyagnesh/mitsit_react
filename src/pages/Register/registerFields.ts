@@ -85,6 +85,8 @@ export const registerFields: FieldType[] = [
     validate: (value: string) => {
       if (!value) {
         return "Required...";
+      } else if (value !== password.value) {
+        return "Error.";
       }
       return undefined;
     },

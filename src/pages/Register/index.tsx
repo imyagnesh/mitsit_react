@@ -15,6 +15,14 @@ const Register = (props: Props) => {
         children: "Sign Up",
       }}
       fields={registerFields}
+      // validate={(values) => {
+      //   const errors = {} as typeof values;
+      //   if (values.password !== values.confirmPassword) {
+      //     errors.confirmPassword =
+      //       "Password should match with confirm Password";
+      //   }
+      //   return errors;
+      // }}
     />
   );
 };

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { BorderType } from "components/Input";
 import { FastFieldProps, FieldProps } from "formik";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -13,6 +13,8 @@ const CustomDatePicker = ({
   isFirst,
   isLast,
 }: Props) => {
+  console.log("date picker");
+
   const error = touched[name] ? errors[name] : undefined;
   return (
     <DatePicker
@@ -33,4 +35,4 @@ const CustomDatePicker = ({
   );
 };
 
-export default CustomDatePicker;
+export default memo(CustomDatePicker);
