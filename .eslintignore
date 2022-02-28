@@ -1,0 +1,7 @@
+__mocks__
+.vscode
+bundle
+coverage
+node_modules
+public
+types

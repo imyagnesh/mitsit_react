@@ -1,6 +1,6 @@
-import React, { InputHTMLAttributes, memo } from "react";
-import classnames from "classnames";
-import { FastFieldProps } from "formik";
+import React, { InputHTMLAttributes, memo } from 'react';
+import classnames from 'classnames';
+import { FastFieldProps } from 'formik';
 
 type TopBorderType = {
   isFirst?: boolean;
@@ -14,7 +14,7 @@ type BottomBorderType = {
 
 export type BorderType = TopBorderType | BottomBorderType;
 
-type Props = { error?: string } & BorderType &
+type Props = BorderType &
   InputHTMLAttributes<HTMLInputElement> &
   FastFieldProps;
 
@@ -38,12 +38,12 @@ const Input = ({
         id={id}
         placeholder={placeholder}
         className={classnames(
-          "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+          'appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm',
           {
-            "rounded-t-md": !!isFirst,
-            "rounded-b-md": !!isLast,
-            "border-red-500": !!error,
-          }
+            'rounded-t-md': !!isFirst,
+            'rounded-b-md': !!isLast,
+            'border-red-500': !!error,
+          },
         )}
         {...field}
         {...props}

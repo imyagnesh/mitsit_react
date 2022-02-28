@@ -1,18 +1,13 @@
-import React from "react";
-import CustomForm from "components/customForm";
+import React from 'react';
+import CustomForm from 'components/customForm';
+import { useAuth } from 'context/authContext';
 import {
   registerFields,
   registerInitValue,
   validateRegister,
-} from "./registerFields";
-import { FormikHelpers } from "formik";
-import axiosInstance from "utils/axiosInstance";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "context/authContext";
+} from './registerFields';
 
-type Props = {};
-
-const Register = (props: Props) => {
+const Register = () => {
   const { handleRegister } = useAuth();
 
   return (
@@ -20,7 +15,7 @@ const Register = (props: Props) => {
       initialValues={registerInitValue}
       onSubmit={handleRegister}
       btnProps={{
-        children: "Sign Up",
+        children: 'Sign Up',
       }}
       fields={registerFields}
       validate={validateRegister}
@@ -28,6 +23,6 @@ const Register = (props: Props) => {
   );
 };
 
-Register.displayName = "Not Found";
+Register.displayName = 'Not Found';
 
 export default Register;

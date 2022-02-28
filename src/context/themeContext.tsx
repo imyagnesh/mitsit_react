@@ -1,6 +1,6 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useMemo, useState } from 'react';
 
-type ThemeType = "light" | "dark";
+type ThemeType = 'light' | 'dark';
 
 type ThemeContextType = {
   theme: ThemeType;
@@ -8,21 +8,22 @@ type ThemeContextType = {
 };
 
 export const ThemeContext = createContext<ThemeContextType>(
-  {} as ThemeContextType
+  {} as ThemeContextType,
 );
 
 export const ThemeConsumer = ThemeContext.Consumer;
 
 export const ThemeProvider: React.FC = ({ children }) => {
-  const [theme, setTheme] = useState<ThemeType>("light");
+  const [theme, setTheme] = useState<ThemeType>('light');
+
+  const value = useMemo(
+    () => ({
+      theme,
+      setTheme,
+    }),
+    [theme, setTheme],
+  );
   return (
-    <ThemeContext.Provider
-      value={{
-        theme,
-        setTheme,
-      }}
-    >
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 };

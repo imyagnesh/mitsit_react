@@ -1,11 +1,11 @@
-import React from "react";
-import CustomForm from "components/customForm";
-import { FastField, FormikHelpers } from "formik";
-import Checkbox from "components/checkbox";
-import { loginFields, loginInitValue } from "./loginFields";
-import axiosInstance from "utils/axiosInstance";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "context/authContext";
+import React from 'react';
+import CustomForm from 'components/customForm';
+import { FastField, FormikHelpers } from 'formik';
+import Checkbox from 'components/checkbox';
+import axiosInstance from 'utils/axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from 'context/authContext';
+import { loginFields, loginInitValue } from './loginFields';
 
 type Props = {};
 
@@ -17,7 +17,7 @@ const Login = (props: Props) => {
       fields={loginFields}
       onSubmit={handleLogin}
       btnProps={{
-        children: "Sign In",
+        children: 'Sign In',
       }}
     >
       <div className="flex items-center justify-between">
@@ -26,7 +26,7 @@ const Login = (props: Props) => {
         </FastField>
         <div className="text-sm">
           <a
-            href="#"
+            href="#abc"
             className="font-medium text-indigo-600 hover:text-indigo-500"
           >
             Forgot your password?
@@ -37,6 +37,6 @@ const Login = (props: Props) => {
   );
 };
 
-Login.displayName = "Not Found";
+Login.displayName = 'Not Found';
 
 export default Login;
