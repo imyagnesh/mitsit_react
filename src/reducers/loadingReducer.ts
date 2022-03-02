@@ -4,21 +4,46 @@ export type LoadingStateType = {
   id?: number;
 };
 
-type ProductLoadingAction = {
-  type: 'LOAD_PRODUCTS_REQUEST';
-  payload: {
-    message?: string;
-    id?: never;
-  };
+type LoadingPayload = {
+  message?: string;
+  id?: never;
 };
 
-export type LoadingActions = ProductLoadingAction;
+type LoadingPayloadWithID = {
+  message?: string;
+  id: number;
+};
+
+type ProductLoadingAction = {
+  type: 'LOAD_PRODUCTS_REQUEST';
+  payload: LoadingPayload;
+};
+
+type CartLoadingAction = {
+  type: 'LOAD_CART_REQUEST';
+  payload: LoadingPayload;
+};
+
+type AddCartItemAction = {
+  type: 'ADD_CART_ITEM_REQUEST';
+  payload: LoadingPayloadWithID;
+};
+
+type UpdateCartItemAction = {
+  type: 'UPDATE_CART_ITEM_REQUEST';
+  payload: LoadingPayloadWithID;
+};
+
+export type LoadingActions =
+  | ProductLoadingAction
+  | CartLoadingAction
+  | AddCartItemAction
+  | UpdateCartItemAction;
 
 export default (
   state: LoadingStateType[],
   { type, payload }: LoadingActions,
 ) => {
-  console.log('loading Reducer', type);
   const matches = /(.*)_(REQUEST|SUCCESS|FAIL)/.exec(type);
   if (!matches) return state;
   const [, action, actionType] = matches;

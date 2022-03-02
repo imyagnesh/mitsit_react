@@ -49,5 +49,7 @@ module.exports = {
     ],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+    'react/jsx-one-expression-per-line': 0,
+    'implicit-arrow-linebreak': 0,
   },
 };
