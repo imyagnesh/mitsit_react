@@ -47,7 +47,8 @@ export type LoadingActions =
   | DeleteCartItemAction;
 
 export default (
-  state: LoadingStateType[],
+  // eslint-disable-next-line default-param-last
+  state: LoadingStateType[] = [],
   { type, payload }: LoadingActions,
 ) => {
   const matches = /(.*)_(REQUEST|SUCCESS|FAIL)/.exec(type);

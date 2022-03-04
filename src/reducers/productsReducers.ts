@@ -3,7 +3,11 @@ export type ProductsActions = {
   payload: ProductType[];
 };
 
-export default (state: ProductType[], { type, payload }: ProductsActions) => {
+export default (
+  // eslint-disable-next-line default-param-last
+  state: ProductType[] = [],
+  { type, payload }: ProductsActions,
+) => {
   switch (type) {
     case 'LOAD_PRODUCTS_SUCCESS':
       return payload;

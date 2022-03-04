@@ -24,7 +24,8 @@ export type CartActionType =
   | UpdateCartItemSuccessType
   | DeleteCartItemSuccessType;
 
-export default (state: CartType[], { type, payload }: CartActionType) => {
+// eslint-disable-next-line default-param-last
+export default (state: CartType[] = [], { type, payload }: CartActionType) => {
   switch (type) {
     case 'LOAD_CART_SUCCESS':
       return payload as CartType[];

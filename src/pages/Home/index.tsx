@@ -1,14 +1,23 @@
+import { loadCartAction } from 'actions/cartActions';
+import { loadProductsAction } from 'actions/productsActions';
 import Product from 'components/Product';
+import { AppDispatch } from 'configureStore';
 import { useCart } from 'context/cartContext';
 import { useProducts } from 'context/productsProvider';
 import React, { useCallback, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { RootState } from 'reducers';
 
-type Props = {};
+type Props = {
+  products: ProductType[];
+  cart: CartType[];
+  loadCart: () => Promise<void>;
+  loadProducts: () => Promise<void>;
+};
 
-const Home = (props: Props) => {
-  const { loadProducts, productsState } = useProducts();
-  const { loadCart, cartState, addToCart, deleteItem, updateToCart } =
-    useCart();
+const Home = ({ products, cart, loadProducts, loadCart }: Props) => {
+  const { productsState } = useProducts();
+  const { cartState, addToCart, deleteItem, updateToCart } = useCart();
 
   const loadData = useCallback(async () => {
     await Promise.all([loadProducts(), loadCart()]);
@@ -20,7 +29,7 @@ const Home = (props: Props) => {
 
   return (
     <div className="container mx-auto">
-      {productsState.products.map((product) => {
+      {products.map((product) => {
         const addCartLoader = cartState.loading.find(
           (x) => x.type === 'ADD_CART_ITEM' && x.id === product.id,
         );
@@ -30,7 +39,7 @@ const Home = (props: Props) => {
         const deleteCartLoader = cartState.loading.find(
           (x) => x.type === 'DELETE_CART_ITEM' && x.id === product.id,
         );
-        const cartItem = cartState.cart.find((x) => x.productId === product.id);
+        const cartItem = cart.find((x) => x.productId === product.id);
         return (
           <Product
             key={product.id}
@@ -51,4 +60,14 @@ const Home = (props: Props) => {
 
 Home.displayName = 'Not Found';
 
-export default Home;
+const mapStateToProps = (state: RootState) => ({
+  products: state.products,
+  cart: state.cart,
+});
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  loadProducts: () => loadProductsAction()(dispatch),
+  loadCart: () => loadCartAction()(dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

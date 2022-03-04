@@ -51,7 +51,11 @@ export type ErrorActions =
   | UpdateCartItemAction
   | DeleteCartItemAction;
 
-export default (state: ErrorStateType[], { type, payload }: ErrorActions) => {
+export default (
+  // eslint-disable-next-line default-param-last
+  state: ErrorStateType[] = [],
+  { type, payload }: ErrorActions,
+) => {
   const matches = /(.*)_(REQUEST|FAIL)/.exec(type);
   if (!matches) return state;
   const [, action, actionType] = matches;

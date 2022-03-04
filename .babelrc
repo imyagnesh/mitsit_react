@@ -18,7 +18,8 @@
           "context": "./src/context",
           "components": "./src/components",
           "utils": "./src/utils",
-          "reducers": "./src/reducers"
+          "reducers": "./src/reducers",
+          "actions": "./src/actions"
         }
       }
     ]
