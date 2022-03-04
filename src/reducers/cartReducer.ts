@@ -13,10 +13,16 @@ type UpdateCartItemSuccessType = {
   payload: CartType;
 };
 
+type DeleteCartItemSuccessType = {
+  type: 'DELETE_CART_ITEM_SUCCESS';
+  payload: CartType;
+};
+
 export type CartActionType =
   | LoadCartSuccessType
   | AddCartItemSuccessType
-  | UpdateCartItemSuccessType;
+  | UpdateCartItemSuccessType
+  | DeleteCartItemSuccessType;
 
 export default (state: CartType[], { type, payload }: CartActionType) => {
   switch (type) {
@@ -33,6 +39,11 @@ export default (state: CartType[], { type, payload }: CartActionType) => {
         payload as CartType,
         ...state.slice(index + 1),
       ];
+    }
+
+    case 'DELETE_CART_ITEM_SUCCESS': {
+      const index = state.findIndex((x) => x.id === (payload as CartType).id);
+      return [...state.slice(0, index), ...state.slice(index + 1)];
     }
 
     default:

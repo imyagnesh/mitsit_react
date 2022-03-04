@@ -6,8 +6,10 @@ type Props = {
   product: ProductType;
   addToCart: (productId: number, quantity: number) => Promise<void>;
   updateToCart: (cartItem: CartType) => Promise<void>;
+  deleteItem: (cartItem: CartType) => Promise<void>;
   addCartLoader: LoadingStateType | undefined;
   updateCartLoader: LoadingStateType | undefined;
+  deleteCartLoader: LoadingStateType | undefined;
   cartItem: CartType | undefined;
 };
 
@@ -18,6 +20,8 @@ const Product = ({
   updateCartLoader,
   cartItem,
   updateToCart,
+  deleteItem,
+  deleteCartLoader,
 }: Props) => (
   <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
     <div className="aspect-w-2 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-3">
@@ -59,17 +63,28 @@ const Product = ({
               onClick={() =>
                 updateToCart({ ...cartItem, quantity: cartItem.quantity + 1 })
               }
-              className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-500">
+              className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-500"
+            >
               +
             </button>
             <p className="px-4 font-bold text-2xl">{cartItem.quantity}</p>
             <button
               type="button"
-              disabled={!!updateCartLoader}
-              onClick={() =>
-                updateToCart({ ...cartItem, quantity: cartItem.quantity - 1 })
+              disabled={
+                cartItem.quantity > 1 ? !!updateCartLoader : !!deleteCartLoader
               }
-              className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-500">
+              onClick={() => {
+                if (cartItem.quantity > 1) {
+                  updateToCart({
+                    ...cartItem,
+                    quantity: cartItem.quantity - 1,
+                  });
+                } else {
+                  deleteItem(cartItem);
+                }
+              }}
+              className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-500"
+            >
               -
             </button>
           </div>
@@ -78,7 +93,8 @@ const Product = ({
             type="button"
             disabled={!!addCartLoader}
             onClick={() => addToCart(product.id, 1)}
-            className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-500">
+            className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-500"
+          >
             Add to bag
           </button>
         )}

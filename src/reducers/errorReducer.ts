@@ -5,7 +5,7 @@ export type ErrorStateType = {
   id?: number;
 };
 
-type ErrorPayload = {
+type ErrorPayloadWithoutID = {
   message?: string;
   id?: never;
   error: Error;
@@ -16,6 +16,8 @@ type ErrorPayloadWithID = {
   error: Error;
   id: number;
 };
+
+type ErrorPayload = ErrorPayloadWithoutID | ErrorPayloadWithID;
 
 type ProductErrorAction = {
   type: 'LOAD_PRODUCTS_FAIL';
@@ -29,19 +31,25 @@ type CartLoadingAction = {
 
 type AddCartItemAction = {
   type: 'ADD_CART_ITEM_FAIL';
-  payload: ErrorPayloadWithID;
+  payload: ErrorPayload;
 };
 
 type UpdateCartItemAction = {
   type: 'UPDATE_CART_ITEM_FAIL';
-  payload: ErrorPayloadWithID;
+  payload: ErrorPayload;
+};
+
+type DeleteCartItemAction = {
+  type: 'DELETE_CART_ITEM_FAIL';
+  payload: ErrorPayload;
 };
 
 export type ErrorActions =
   | ProductErrorAction
   | CartLoadingAction
   | AddCartItemAction
-  | UpdateCartItemAction;
+  | UpdateCartItemAction
+  | DeleteCartItemAction;
 
 export default (state: ErrorStateType[], { type, payload }: ErrorActions) => {
   const matches = /(.*)_(REQUEST|FAIL)/.exec(type);

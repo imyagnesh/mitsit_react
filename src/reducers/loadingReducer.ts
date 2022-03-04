@@ -34,11 +34,17 @@ type UpdateCartItemAction = {
   payload: LoadingPayloadWithID;
 };
 
+type DeleteCartItemAction = {
+  type: 'DELETE_CART_ITEM_REQUEST';
+  payload: LoadingPayloadWithID;
+};
+
 export type LoadingActions =
   | ProductLoadingAction
   | CartLoadingAction
   | AddCartItemAction
-  | UpdateCartItemAction;
+  | UpdateCartItemAction
+  | DeleteCartItemAction;
 
 export default (
   state: LoadingStateType[],

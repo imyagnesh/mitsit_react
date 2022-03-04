@@ -7,13 +7,29 @@ import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import { Routes, Route } from 'react-router-dom';
+import { ProductsProvider } from 'context/productsProvider';
+import { CartProvider } from 'context/cartContext';
 
 // type Props = {};
 
 const App = () => (
   <Routes>
-    <Route path="/" element={<MainLayout />}>
-      <Route index element={<Home />} />
+    <Route
+      path="/"
+      element={
+        <CartProvider>
+          <MainLayout />
+        </CartProvider>
+      }
+    >
+      <Route
+        index
+        element={
+          <ProductsProvider>
+            <Home />
+          </ProductsProvider>
+        }
+      />
     </Route>
 
     <Route path="/auth" element={<AuthLayout />}>
@@ -23,7 +39,7 @@ const App = () => (
           <ThemeProvider>
             <Login />
           </ThemeProvider>
-          }
+        }
       />
       <Route path="/auth/register" element={<Register />} />
     </Route>

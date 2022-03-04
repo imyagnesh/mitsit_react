@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { ShoppingBagIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from 'context/authContext';
+import { useCart } from 'context/cartContext';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -18,6 +19,7 @@ function classNames(...classes: string[]) {
 
 const MainLayout = () => {
   const { session, logout } = useAuth();
+  const { cartState } = useCart();
 
   if (!session) {
     return <Navigate to="/auth" replace />;
@@ -80,7 +82,9 @@ const MainLayout = () => {
                     className="flex gap-2 items-center bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   >
                     <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
-                    <span>0</span>
+                    <span>
+                      {cartState.cart.reduce((p, c) => p + c.quantity, 0)}
+                    </span>
                   </button>
 
                   {/* Profile dropdown */}
