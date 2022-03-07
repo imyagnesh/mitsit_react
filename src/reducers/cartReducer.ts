@@ -34,6 +34,7 @@ export default (state: CartType[] = [], { type, payload }: CartActionType) => {
       return [...state, payload as CartType];
 
     case 'UPDATE_CART_ITEM_SUCCESS': {
+      // success logic
       const index = state.findIndex((x) => x.id === (payload as CartType).id);
       return [
         ...state.slice(0, index),

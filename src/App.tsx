@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ThemeProvider } from 'context/themeContext';
 import AuthLayout from 'layout/AuthLayout';
 import MainLayout from 'layout/MainLayout';
 import NotFound from 'pages/404';
-import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import { Routes, Route } from 'react-router-dom';
 import { ProductsProvider } from 'context/productsProvider';
 import { CartProvider } from 'context/cartContext';
 
+const HomeAsync = lazy(() => import('pages/Home'));
+const LoginAsync = lazy(() => import('pages/Login'));
+
 // type Props = {};
 
-const App = () => (<Routes>
+const App = () => (
+  <Routes>
     <Route
       path="/"
       element={
@@ -25,7 +28,9 @@ const App = () => (<Routes>
         index
         element={
           <ProductsProvider>
-            <Home />
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <HomeAsync />
+            </Suspense>
           </ProductsProvider>
         }
       />
@@ -36,7 +41,9 @@ const App = () => (<Routes>
         index
         element={
           <ThemeProvider>
-            <Login />
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <LoginAsync />
+            </Suspense>
           </ThemeProvider>
         }
       />
@@ -44,6 +51,7 @@ const App = () => (<Routes>
     </Route>
 
     <Route path="*" element={<NotFound />} />
-  </Routes>)
+  </Routes>
+);
 
 export default App;
