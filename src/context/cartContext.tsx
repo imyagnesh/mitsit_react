@@ -58,7 +58,7 @@ export const CartProvider: FC = ({ children }) => {
       dispatch({
         type: 'ADD_CART_ITEM_REQUEST',
         payload: {
-          id: productId,
+          loaderId: productId,
           message: 'Adding Item in the cart',
         },
       });
@@ -75,7 +75,7 @@ export const CartProvider: FC = ({ children }) => {
       dispatch({
         type: 'ADD_CART_ITEM_FAIL',
         payload: {
-          id: productId,
+          loaderId: productId,
           error: error as Error,
           message: 'Item not added to cart',
         },
@@ -88,7 +88,7 @@ export const CartProvider: FC = ({ children }) => {
       dispatch({
         type: 'UPDATE_CART_ITEM_REQUEST',
         payload: {
-          id: cartItem.productId,
+          loaderId: cartItem.productId,
           message: 'Updating Cart Item',
         },
       });
@@ -101,7 +101,7 @@ export const CartProvider: FC = ({ children }) => {
       dispatch({
         type: 'UPDATE_CART_ITEM_FAIL',
         payload: {
-          id: cartItem.productId,
+          loaderId: cartItem.productId,
           error: error as Error,
           message: 'Updating Item fail',
         },
@@ -114,7 +114,7 @@ export const CartProvider: FC = ({ children }) => {
       dispatch({
         type: 'DELETE_CART_ITEM_REQUEST',
         payload: {
-          id: cartItem.productId,
+          loaderId: cartItem.productId,
           message: 'Deleting Item From Cart',
         },
       });
@@ -127,7 +127,7 @@ export const CartProvider: FC = ({ children }) => {
       dispatch({
         type: 'DELETE_CART_ITEM_FAIL',
         payload: {
-          id: cartItem.productId,
+          loaderId: cartItem.productId,
           error: error as Error,
           message: 'Unable to remove item from cart....',
         },

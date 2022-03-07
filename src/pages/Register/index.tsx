@@ -21,7 +21,7 @@ const Register = () => {
       validate={validateRegister}
     />
   );
-};
+}
 
 Register.displayName = 'Not Found';
 

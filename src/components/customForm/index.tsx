@@ -14,8 +14,7 @@ const CustomForm = <T extends FormikValues = FormikValues>({
   fields,
   btnProps,
   ...rest
-}: Props<T>) => (
-  <Formik {...rest}>
+}: Props<T>) => (<Formik {...rest}>
     {({
       dirty, isValid, isSubmitting, errors,
     }) => (
@@ -42,7 +41,6 @@ const CustomForm = <T extends FormikValues = FormikValues>({
         </div>
       </Form>
     )}
-  </Formik>
-  );
+  </Formik>)
 
 export default CustomForm;

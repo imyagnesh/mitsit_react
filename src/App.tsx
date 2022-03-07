@@ -12,8 +12,7 @@ import { CartProvider } from 'context/cartContext';
 
 // type Props = {};
 
-const App = () => (
-  <Routes>
+const App = () => (<Routes>
     <Route
       path="/"
       element={
@@ -45,7 +44,6 @@ const App = () => (
     </Route>
 
     <Route path="*" element={<NotFound />} />
-  </Routes>
-);
+  </Routes>)
 
 export default App;

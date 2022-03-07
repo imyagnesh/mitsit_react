@@ -2,19 +2,19 @@ export type ErrorStateType = {
   type: string;
   error: Error;
   message?: string;
-  id?: number;
+  loaderId?: number;
 };
 
 type ErrorPayloadWithoutID = {
   message?: string;
-  id?: never;
+  loaderId?: never;
   error: Error;
 };
 
 type ErrorPayloadWithID = {
   message?: string;
   error: Error;
-  id: number;
+  loaderId: number;
 };
 
 type ErrorPayload = ErrorPayloadWithoutID | ErrorPayloadWithID;
@@ -62,5 +62,7 @@ export default (
   if (actionType === 'FAIL') {
     return [...state, { type: action, ...payload }];
   }
-  return state.filter((x) => !(x.type === action && x.id === payload.id));
+  return state.filter(
+    (x) => !(x.type === action && x.loaderId === payload.loaderId),
+  );
 };

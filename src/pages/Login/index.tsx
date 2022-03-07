@@ -35,7 +35,7 @@ const Login = (props: Props) => {
       </div>
     </CustomForm>
   );
-};
+}
 
 Login.displayName = 'Not Found';
 

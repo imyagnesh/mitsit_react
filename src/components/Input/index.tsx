@@ -50,6 +50,6 @@ const Input = ({
       />
     </div>
   );
-};
+}
 
 export default memo(Input);

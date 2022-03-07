@@ -10,8 +10,7 @@ const Checkbox = ({
   id,
   children,
   ...props
-}: Props) => (
-  <div className="flex items-center">
+}: Props) => (<div className="flex items-center">
     <input
       id={id}
       name={name}
@@ -24,7 +23,6 @@ const Checkbox = ({
     <label htmlFor={id} className="ml-2 block text-sm text-gray-900">
       {children}
     </label>
-  </div>
-);
+  </div>)
 
 export default memo(Checkbox);

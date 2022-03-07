@@ -9,8 +9,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const Rating = ({ rating: { rate, count } }: Props) => (
-  <div className="mt-6">
+const Rating = ({ rating: { rate, count } }: Props) => (<div className="mt-6">
     <h4 className="sr-only">Reviews</h4>
     <div className="flex items-center">
       <div className="flex items-center">
@@ -33,7 +32,6 @@ const Rating = ({ rating: { rate, count } }: Props) => (
         {count} reviews
       </a>
     </div>
-  </div>
-);
+  </div>)
 
 export default memo(Rating);

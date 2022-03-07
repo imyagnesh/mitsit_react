@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -15,21 +15,6 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'import', 'react-hooks'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
-    'react/jsx-wrap-multilines': [
-      2,
-      {
-        declaration: 'parens',
-        assignment: 'parens',
-        return: 'parens',
-        arrow: 'parens',
-        condition: 'ignore',
-        logical: 'ignore',
-        prop: 'ignore',
-      },
-    ],
-    'import/no-unresolved': 0,
-    'no-unused-vars': 0,
-    'no-undef': 0,
     'import/extensions': [
       'error',
       {
@@ -39,6 +24,10 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-unresolved': 0,
+    'no-unused-vars': 0,
+    'no-undef': 0,
+
     'react/jsx-props-no-spreading': 0,
     'react/function-component-definition': [
       2,
@@ -49,7 +38,5 @@ module.exports = {
     ],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
-    'react/jsx-one-expression-per-line': 0,
-    'implicit-arrow-linebreak': 0,
   },
 };

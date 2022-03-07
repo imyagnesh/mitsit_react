@@ -1,17 +1,17 @@
 export type LoadingStateType = {
   type: string;
   message?: string;
-  id?: number;
+  loaderId?: number;
 };
 
 type LoadingPayload = {
   message?: string;
-  id?: never;
+  loaderId?: never;
 };
 
 type LoadingPayloadWithID = {
   message?: string;
-  id: number;
+  loaderId: number;
 };
 
 type ProductLoadingAction = {
@@ -57,5 +57,7 @@ export default (
   if (actionType === 'REQUEST') {
     return [...state, { type: action, ...payload }];
   }
-  return state.filter((x) => !(x.type === action && x.id === payload.id));
+  return state.filter(
+    (x) => !(x.type === action && x.loaderId === payload.loaderId),
+  );
 };

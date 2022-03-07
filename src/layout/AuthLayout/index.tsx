@@ -40,7 +40,7 @@ const AuthLayout = (props: Props) => {
       </div>
     </div>
   );
-};
+}
 
 AuthLayout.displayName = 'Auth Layout';
 

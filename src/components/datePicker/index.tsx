@@ -31,6 +31,6 @@ const CustomDatePicker = ({
       placeholderText="Birth Date"
     />
   );
-};
+}
 
 export default memo(CustomDatePicker);
