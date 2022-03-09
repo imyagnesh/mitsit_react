@@ -1,11 +1,6 @@
 import { connect } from 'react-redux';
 import { RootState } from 'reducers';
 import { AppDispatch } from 'configureStore';
-import {
-  addToCartAction,
-  deleteItemAction,
-  updateToCartAction,
-} from 'actions/cartActions';
 import Product, { ProductProps, ProductStoreProps } from './Product';
 
 const mapStateToProps = (
@@ -26,9 +21,33 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   addToCart: (productId: number, quantity: number) =>
-    addToCartAction(productId, quantity)(dispatch),
-  updateToCart: (cartItem: CartType) => updateToCartAction(cartItem)(dispatch),
-  deleteItem: (cartItem: CartType) => deleteItemAction(cartItem)(dispatch),
+    dispatch({
+      type: 'ADD_CART_ITEM_REQUEST',
+      payload: {
+        productId,
+        quantity,
+        loaderId: productId,
+        message: 'Adding Item in the cart',
+      },
+    }),
+  updateToCart: (cartItem: CartType) =>
+    dispatch({
+      type: 'UPDATE_CART_ITEM_REQUEST',
+      payload: {
+        cartItem,
+        loaderId: cartItem.productId,
+        message: 'Updating Cart Item',
+      },
+    }),
+  deleteItem: (cartItem: CartType) =>
+    dispatch({
+      type: 'DELETE_CART_ITEM_REQUEST',
+      payload: {
+        cartItem,
+        loaderId: cartItem.productId,
+        message: 'Deleting Item From Cart',
+      },
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

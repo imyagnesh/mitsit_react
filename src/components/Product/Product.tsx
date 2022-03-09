@@ -7,9 +7,9 @@ export type ProductStoreProps = {
   updateCartLoader: LoadingStateType | undefined;
   deleteCartLoader: LoadingStateType | undefined;
   cartItem: CartType | undefined;
-  addToCart: (productId: number, quantity: number) => Promise<void>;
-  updateToCart: (cartItem: CartType) => Promise<void>;
-  deleteItem: (cartItem: CartType) => Promise<void>;
+  addToCart: (productId: number, quantity: number) => void;
+  updateToCart: (cartItem: CartType) => void;
+  deleteItem: (cartItem: CartType) => void;
 };
 
 export type ProductProps = {
@@ -94,7 +94,7 @@ const Product = ({
         ) : (
           <button
             type="button"
-            disabled={!!addCartLoader}
+            // disabled={!!addCartLoader}
             onClick={() => addToCart(product.id, 1)}
             className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-500"
           >

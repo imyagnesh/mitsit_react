@@ -4,20 +4,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 type Props = {
   products: ProductType[];
-  loadCart: () => Promise<void>;
-  loadProducts: () => Promise<void>;
+  loadCart: () => void;
+  loadProducts: () => void;
 };
 
 const Home = ({ products, loadProducts, loadCart }: Props) => {
   const [currentTime, setCurrentTime] = useState('');
 
-  const loadData = useCallback(async () => {
-    await Promise.all([loadProducts(), loadCart()]);
-  }, [loadProducts, loadCart]);
-
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    loadProducts();
+    loadCart();
+  }, [loadProducts, loadCart]);
 
   const loadCurrentTime = async () => {
     console.log('loadCurrentTime');

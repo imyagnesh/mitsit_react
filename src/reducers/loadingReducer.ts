@@ -53,6 +53,7 @@ export default (
 ) => {
   const matches = /(.*)_(REQUEST|SUCCESS|FAIL)/.exec(type);
   if (!matches) return state;
+
   const [, action, actionType] = matches;
   if (actionType === 'REQUEST') {
     return [...state, { type: action, ...payload }];
