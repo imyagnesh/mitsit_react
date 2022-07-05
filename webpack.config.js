@@ -8,8 +8,8 @@ module.exports = {
     filename: 'mitsit.min.js',
     publicPath: '/',
   },
+  devtool: 'source-map',
   mode: 'development',
-  devtool: 'eval-cheap-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },

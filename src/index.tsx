@@ -8,7 +8,7 @@ import App from './App';
 import store from './configureStore';
 import './style.css';
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
       <AuthProvider>
